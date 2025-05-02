@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5500",
+        target: "https://chatapp-2p20.onrender.com",
       },
     },
   },
