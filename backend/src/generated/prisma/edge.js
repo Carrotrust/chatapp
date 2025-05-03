@@ -158,6 +158,10 @@ const config = {
         "fromEnvVar": null,
         "value": "darwin",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -184,8 +188,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             String   @id @default(cuid())\n  username       String   @unique\n  fullname       String\n  password       String\n  gender         Gender\n  profilePic     String\n  createdAt      DateTime @default(now())\n  conversationId String[]\n\n  conversations Conversation[]\n  messages      Message[]\n}\n\nmodel Conversation {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  participantIds String[]\n  participants   User[]\n\n  messageId String[]\n  messages  Message[]\n}\n\nmodel Message {\n  id             String       @id @default(cuid())\n  conversationId String\n  conversation   Conversation @relation(fields: [conversationId], references: [id])\n  senderId       String\n  sender         User         @relation(fields: [senderId], references: [id])\n\n  body      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum Gender {\n  male\n  female\n}\n",
-  "inlineSchemaHash": "9d905d7cf1fa0e2b70ca82f21987ff5bb909ebd9e47cd3b2b540fa0f58ea5552",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             String   @id @default(cuid())\n  username       String   @unique\n  fullname       String\n  password       String\n  gender         Gender\n  profilePic     String\n  createdAt      DateTime @default(now())\n  conversationId String[]\n\n  conversations Conversation[]\n  messages      Message[]\n}\n\nmodel Conversation {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  participantIds String[]\n  participants   User[]\n\n  messageId String[]\n  messages  Message[]\n}\n\nmodel Message {\n  id             String       @id @default(cuid())\n  conversationId String\n  conversation   Conversation @relation(fields: [conversationId], references: [id])\n  senderId       String\n  sender         User         @relation(fields: [senderId], references: [id])\n\n  body      String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum Gender {\n  male\n  female\n}\n",
+  "inlineSchemaHash": "c77ae35872a3a1aab4d88b5a7eec9ff4a1e10951f4edf6834d69347e40328112",
   "copyEngine": true
 }
 config.dirname = '/'
