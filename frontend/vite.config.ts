@@ -9,6 +9,8 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://chatapp-2p20.onrender.com",
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
